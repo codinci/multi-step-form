@@ -12,8 +12,8 @@
 					@for (step of steps; track $index) {
 						<div class="block md:flex md:space-x-4">
 							<li
-								class="{{currentStep === step.id ? 'bg-red-500 border-red-500': ''}}
-								 border-2 border-white rounded-full px-2 py-1 md:px-4 md:py-2
+								class="{{currentStep === step.id ? 'bg-red-500 border-red-500': 'border-white'}}
+								 border-2  rounded-full px-2 py-1 md:px-4 md:py-2
 								text-white text-xs md:text-lg"
 							>
 								{{step.id}}
@@ -32,10 +32,17 @@
 	<!-- Form section -->
 
 	<section>
-		<form [formGroup]="userData" (ngSubmit)="onSubmit()">
+		@for( form of data; track $index ) {
+			{{ form.title}}
+		}
+
+
+
+
+		<!-- <form [formGroup]="userData" (ngSubmit)="onSubmit()">
 			@switch (currentStep) {
 				@case(1) {
-					<app-info-form></app-info-form>
+					<app-info-form [personalInfoForm]="userData"></app-info-form>
 				}
 				@case(2) {
 					<app-plan-form></app-plan-form>
@@ -48,19 +55,19 @@
 				}
 
 			}
-			<div>
+			<div class="w-full mt-8 mx-4">
 				@if(currentStep === 1) {
-					<app-button type="button" (click)="handleButtonClick('next')" [text]="Next"></app-button>
+					<app-button type="button" (click)="handleButtonClick('next')" [text]="btnText[0]"></app-button>
 				}
 				@else if (currentStep === steps.length) {
-					<app-button type="button" (click)="handleButtonClick('prev')" [text]="Previous"></app-button>
-					<app-button type='submit' [text]="Submit" ></app-button>
+					<app-button type="button" (click)="handleButtonClick('prev')" [text]="btnText[1]"></app-button>
+					<app-button type='submit' [text]="btnText[2]" ></app-button>
 				}
 				@else {
-					<app-button type="button" (click)="handleButtonClick('prev')" [text]="Previous">Previous</app-button>
-					<app-button type="button" (click)="handleButtonClick('next')" [text]="Next"></app-button>
+					<app-button type="button" (click)="handleButtonClick('prev')" [text]="btnText[1]">Previous</app-button>
+					<app-button type="button" (click)="handleButtonClick('next')" [text]="btnText[0]"></app-button>
 				}
 			</div>
-		</form>
+		</form> -->
 	</section>
 </div>

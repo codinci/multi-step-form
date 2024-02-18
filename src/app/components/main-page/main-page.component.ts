@@ -1,11 +1,13 @@
 import { Component } from '@angular/core';
-import { FormGroup, FormControl, ReactiveFormsModule } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, ReactiveFormsModule } from '@angular/forms';
+import { FormdataService } from '../../services/formdata.service';
 
+import { NavSteps } from '../../interfaces/NavStepsInterface';
+import { IaddOnsData, InfoData, IplanData, IstepItems } from '../../interfaces/FormDataInterfaces';
 
 import { InfoFormComponent } from "../info-form/info-form.component";
 import { PlanFormComponent } from "../plan-form/plan-form.component";
 import { ButtonComponent } from "../button/button.component";
-import { NavSteps } from '../../interfaces/nav-steps';
 import { AddOnsFormComponent } from "../add-ons-form/add-ons-form.component";
 import { SummaryFormComponent } from "../summary-form/summary-form.component";
 
@@ -37,26 +39,61 @@ export class MainPageComponent {
     }
   ]
 
+
   currentStep: number = 1;
-  userData = new FormGroup({
-    name: new FormControl('')
-  });
+  btnText: string[] = ['Next Step', 'Go Back', 'Confirm']
+  data: IstepItems[] = [];
+  form: Array<FormGroup> = [];
+  currentFormData: (IplanData | IaddOnsData | InfoData | [])[] = [];
+  currentFormFields: string[][] = [];
+  
 
-  Next: string = "Next";
-  Previous: string ="Previous";
-  Submit: string = "Submit";
+  constructor(private _formBuilder: FormBuilder, private _formData: FormdataService) { }
 
-  handleButtonClick(direction: 'next' | 'prev') {
-    if (direction === 'next') {
-      this.currentStep += 1;
-    } else {
-      this.currentStep -= 1;
+  ngOnInit(): void {
+    this.getFormData();
+  }
+
+  getFormData(): void {
+    this.data = this._formData.getFormData();
+    this.data.forEach((dataItem, i) => {
+      this.currentFormData.push(this.data[i]['data']);
+      this.currentFormFields.push(Object.keys(this.currentFormData[i]))
+      this.form.push(this.buildForm(this.currentFormData[i]))
+    })
+  }
+
+  buildForm(currentFormContent: IplanData | IaddOnsData | InfoData | []): FormGroup {
+    const formControls: { [key: string]: any } = {};
+
+    if (Array.isArray(currentFormContent)) {
+      return this._formBuilder.group({});
     }
+
+    Object.keys(currentFormContent).forEach(key => {
+      formControls[key] = ["", Validators.required];
+    });
+
+    return this._formBuilder.group(formControls);
   }
 
 
-  onSubmit() {
-    console.log('Form values submitted')
-  }
 
+
+
+
+  // this.form = this.createFormGroup(data.fields);
+
+  // handleButtonClick(direction: 'next' | 'prev') {
+  //   if (direction === 'next') {
+  //     this.currentStep += 1;
+  //   } else {
+  //     this.currentStep -= 1;
+  //   }
+  // }
+
+
+  // onSubmit() {
+  //   console.log('Form values submitted')
+  // }
 }
