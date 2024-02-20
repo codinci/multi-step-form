@@ -1,0 +1,26 @@
+<nav
+	class="bg-[url('/assets/images/bg-sidebar-mobile.svg')]
+		lg:bg-[url('/assets/images/bg-sidebar-desktop.svg')]
+		bg-no-repeat flex justify-center space-x-4 w-full md:flex-col md:rounded-md"
+>
+	<div class="flex my-12 space-x-2 md:flex-col md:space-x-0 md:space-y-6 md:mx-6 md:mb-56">
+			<ul class="flex space-x-4 md:ml-6 md:flex-col md:space-x-0 md:space-y-4 ">
+				@for (step of steps; track $index) {
+					<div class="block md:flex md:space-x-4">
+						<li
+							class="{{currentStep === $index ? 'bg-red-500 border-red-500': 'border-white'}}
+								border-2  rounded-full px-2 py-1 md:px-4 md:py-2
+							text-white text-xs md:text-lg"
+						>
+							{{$index + 1}}
+						</li>
+
+						<div class="hidden md:block text-white uppercase">
+							<h1 class="text-sm font-light">Step {{ $index + 1 }}</h1>
+							<h2 class="text-lg font-semibold">{{ step }}</h2>
+						</div>
+					</div>
+				}
+			</ul>
+	</div>
+</nav>

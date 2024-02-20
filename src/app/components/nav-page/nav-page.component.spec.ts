@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { InfoFormComponent } from './info-form.component';
+import { NavPageComponent } from './nav-page.component';
 
-describe('InfoFormComponent', () => {
-  let component: InfoFormComponent;
-  let fixture: ComponentFixture<InfoFormComponent>;
+describe('NavPageComponent', () => {
+  let component: NavPageComponent;
+  let fixture: ComponentFixture<NavPageComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [InfoFormComponent]
+      imports: [NavPageComponent]
     })
     .compileComponents();
     
-    fixture = TestBed.createComponent(InfoFormComponent);
+    fixture = TestBed.createComponent(NavPageComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
