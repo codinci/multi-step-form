@@ -50,6 +50,7 @@ const PLAN: IplanData = {
 	'Arcade': {
 		type: 'radio',
 		for: 'arcade',
+		icon: '../../assets/images/icon-arcade.svg',
 		name: 'plan_subscription',
 		monthly: {
 			value: 9,
@@ -63,6 +64,7 @@ const PLAN: IplanData = {
 	'Advanced': {
 		type: 'radio',
 		for: 'advanced',
+		icon: '../../assets/images/icon-advanced.svg',
 		name: 'plan_subscription',
 		monthly: {
 			value: 12,
@@ -76,6 +78,7 @@ const PLAN: IplanData = {
 	'Pro': {
 		type: 'radio',
 		for: 'pro',
+		icon: '../../assets/images/icon-pro.svg',
 		name: 'plan_subscription',
 		monthly: {
 			value: 15,
@@ -103,7 +106,7 @@ const ADDONS: IaddOnsData = {
 			text: '+$10/yr'
 		}
 	},
-	'Larger Storage': {
+	'Larger storage': {
 		type: 'checkbox',
 		for: 'larger_storage',
 		message: 'Extra 1TB of cloud save',
@@ -131,15 +134,11 @@ const ADDONS: IaddOnsData = {
 	},
 };
 
-const planIcons: string[] = [
-	'../../assets/images/icon-arcade.svg',
-	'../../assets/images/icon-advanced.svg',
-	'../../assets/images/icon-pro.svg'
-]
+
 
 export const FormData: IstepItems[] = [
   { title: 'Personal info', subtitle: 'Please provide your name, email address, and phone number.', data: INFO },
-  { title: 'Select your plan', subtitle: 'You have the option of monthly or yearly billing.', icons: planIcons, data: PLAN },
+  { title: 'Select your plan', subtitle: 'You have the option of monthly or yearly billing.', data: PLAN },
   { title: 'Pick add-ons', subtitle: 'Add-ons help enhance your gaming experience.', data: ADDONS },
   { title: 'Finishing up', subtitle: 'Double-check everything looks OK before confirming.', data: [] }
 ];

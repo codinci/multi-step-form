@@ -1,13 +1,75 @@
 <section class="flex flex-col h-full bg-inherit  md:bg-white">
-  <div class="-mt-8 flex-grow mb-8 bg-white mx-auto rounded-md md:mt-0 md:mx-0 md:w-full">
+  <div class="-mt-8 w-3/4 flex-grow mb-8 bg-white mx-auto rounded-md md:mt-0 md:mx-0 md:w-full">
 
-    <h1>Form here</h1>
+  @for(item of data;  track $index){
+    @if($index === currentStep){
+       <form class="p-4">
+        <h1>{{ item.title }}</h1>
+        <p>{{ item.subtitle }}</p>
+        @for(field of formFields[currentStep]; track $index) {
+          @switch (currentFormData[currentStep][field]?.type) {
+            @case ('radio') {
+              <img [src]="currentFormData[currentStep][field]?.icon" alt="{{field}} icon"/>
+              <label [for]="currentFormData[currentStep][field]?.for">{{field}}</label>
+              <input
+                type="radio"
+                [id]="currentFormData[currentStep][field]?.for"
+                [name]="currentFormData[currentStep][field]?.name"
+                [value]="currentFormData[currentStep][field]?.for"
+              />
+            }
+            @case('checkbox') {
+              <label [for]="currentFormData[currentStep][field]?.for">{{field}}</label>
+              <input
+               type="checkbox"
+               [id]="currentFormData[currentStep][field]?.for"
+               [name]="currentFormData[currentStep][field]?.for"
+               [value]="field">
+              <p>{{currentFormData[currentStep][field]?.message}}</p>
+
+            }
+            @default {
+              <label [for]="currentFormData[currentStep][field]?.for">{{field}}</label>
+              <input
+                [type]="currentFormData[currentStep][field]?.type"
+                [placeholder]="currentFormData[currentStep][field]?.placeholder"
+              />
+            }
+          }
+        }
+      </form>
+    }
+  }
+
+
+
+
+
+
+
+
+
 
   </div>
 
-  <div class="mt-auto bg-white">
 
-    <p>Button here</p>
+  <div class="mt-auto bg-white">
+    @if(currentStep === 0){
+      <app-button class="float-right" [text]="btnText[0]" (click)="handleButtonClick('next')"></app-button>
+    }
+    @else if (currentStep === steps.length - 1) {
+			<div class="flex justify-between">
+        <app-button type="button" [text]="btnText[1]" (click)="handleButtonClick('prev')"></app-button>
+        <app-button type="submit" [text]="btnText[2]"></app-button>
+      </div>
+		}
+		@else {
+			<div class="flex justify-between">
+        <app-button type="button" [text]="btnText[1]" (click)="handleButtonClick('prev')"></app-button>
+        <app-button type="button" [text]="btnText[0]" (click)="handleButtonClick('next')"></app-button>
+      </div>
+		}
+
 
   </div>
 </section>

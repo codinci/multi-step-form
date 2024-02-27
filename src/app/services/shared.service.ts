@@ -4,9 +4,8 @@ import { BehaviorSubject, Observable } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
-
 export class SharedService {
-  
+
   private currentStepSubject = new BehaviorSubject<number>(0);
   currentStep$: Observable<number> = this.currentStepSubject.asObservable();
 

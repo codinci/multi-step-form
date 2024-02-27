@@ -15,5 +15,4 @@ import { FormPageComponent } from "./components/form-page/form-page.component";
 export class AppComponent {
   title = 'multi-step-form';
   steps: string[] = ['Your Info', 'Select Plan', 'Add-ons', 'Summary']
-  currentStep: number = 0
 }
